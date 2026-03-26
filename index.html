@@ -4,94 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Call Eligibility Checker — AutoDealers Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f0f2f5;
-      color: #1a1a2e;
+      font-family: 'Montserrat', sans-serif;
+      background: #1a1a1a;
+      color: #1a1a1a;
       min-height: 100vh;
     }
 
+    /* ── Header ── */
     header {
-      background: #1a1a2e;
-      color: white;
-      padding: 16px 24px;
+      background: #1a1a1a;
+      border-bottom: 3px solid #00C8B4;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    header h1 { font-size: 1.2rem; font-weight: 600; }
-    header span { font-size: 0.85rem; color: #a0aec0; }
-
-    .container {
-      max-width: 760px;
-      margin: 32px auto;
-      padding: 0 16px;
-    }
-
-    /* Rep Info Panel */
-    .rep-panel {
-      background: white;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-
-    .rep-panel h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #4a5568;
+    .logo-text {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 16px;
     }
 
+    .logo-tag {
+      color: #00C8B4;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid #00C8B4;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #1a1a1a;
+      padding: 48px 40px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      color: #00C8B4;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #888888;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── Main Layout ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border-radius: 4px;
+      border-top: 4px solid #00C8B4;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 28px 32px;
+    }
+
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 20px;
+    }
+
+    /* ── Rep Grid ── */
     .rep-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
     }
 
     .field label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #718096;
-      margin-bottom: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 8px;
     }
 
     .field input[type="number"],
     .field select {
       width: 100%;
-      padding: 8px 12px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      background: #f7fafc;
-      color: #1a1a2e;
-      transition: border-color 0.2s;
+      padding: 10px 14px;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      background: #f5f5f5;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
     }
 
     .field input:focus,
     .field select:focus {
       outline: none;
-      border-color: #4361ee;
-      background: white;
+      border-color: #00C8B4;
+      background: #ffffff;
     }
 
-    /* Search Panel */
-    .search-panel {
-      background: white;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-
+    /* ── Search ── */
     .search-row {
       display: flex;
       gap: 10px;
@@ -99,141 +158,176 @@
 
     .search-row input {
       flex: 1;
-      padding: 10px 16px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      background: #f7fafc;
-      transition: border-color 0.2s;
+      padding: 12px 16px;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      background: #f5f5f5;
+      transition: border-color 0.2s, background 0.2s;
     }
 
     .search-row input:focus {
       outline: none;
-      border-color: #4361ee;
-      background: white;
+      border-color: #00C8B4;
+      background: #ffffff;
     }
 
+    .search-row input::placeholder { color: #888888; font-weight: 500; }
+
     .btn-search {
-      padding: 10px 22px;
-      background: #4361ee;
-      color: white;
+      padding: 12px 28px;
+      background: #00C8B4;
+      color: #1a1a1a;
       border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       cursor: pointer;
       transition: background 0.2s;
       white-space: nowrap;
     }
 
-    .btn-search:hover { background: #3451d1; }
-    .btn-search:disabled { background: #a0aec0; cursor: not-allowed; }
+    .btn-search:hover { background: #00a899; }
+    .btn-search:disabled { background: #e5e5e5; color: #888888; cursor: not-allowed; }
 
     .search-hint {
-      font-size: 0.78rem;
-      color: #a0aec0;
-      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #888888;
+      margin-top: 10px;
+      letter-spacing: 0.02em;
     }
 
-    /* Results */
-    #results { display: flex; flex-direction: column; gap: 14px; }
+    /* ── Result Cards ── */
+    #results { display: flex; flex-direction: column; gap: 16px; }
 
     .result-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      border-left: 5px solid #e2e8f0;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 24px 28px;
+      border-top: 4px solid #e5e5e5;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
 
-    .result-card.callable    { border-left-color: #48bb78; }
-    .result-card.not-allowed { border-left-color: #fc5c65; }
-    .result-card.manager     { border-left-color: #f6ad55; }
-    .result-card.check       { border-left-color: #63b3ed; }
+    .result-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.11);
+    }
+
+    .result-card.callable    { border-top-color: #00C8B4; }
+    .result-card.not-allowed { border-top-color: #e53e3e; }
+    .result-card.manager     { border-top-color: #f6ad55; }
+    .result-card.check       { border-top-color: #888888; }
 
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      gap: 16px;
     }
 
     .card-name {
       font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a1a2e;
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: -0.01em;
     }
 
-    .card-company {
-      font-size: 0.85rem;
-      color: #718096;
-      margin-top: 2px;
+    .card-sub {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #888888;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
 
     .eligibility-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 2px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .badge-callable    { background: #f0fff4; color: #276749; }
-    .badge-not-allowed { background: #fff5f5; color: #9b2c2c; }
-    .badge-manager     { background: #fffaf0; color: #7b341e; }
-    .badge-check       { background: #ebf8ff; color: #2c5282; }
+    .badge-callable    { background: #e6faf8; color: #00796b; }
+    .badge-not-allowed { background: #fff5f5; color: #c53030; }
+    .badge-manager     { background: #fffaf0; color: #c05621; }
+    .badge-check       { background: #f5f5f5; color: #555555; }
 
     .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      font-size: 0.82rem;
-      color: #718096;
-      margin-bottom: 12px;
+      gap: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #888888;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
     }
 
-    .card-meta span { display: flex; align-items: center; gap: 4px; }
+    .status-chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .chip-active    { background: #e6faf8; color: #00796b; }
+    .chip-cancelled { background: #fff5f5; color: #c53030; }
+    .chip-suspended { background: #fffaf0; color: #c05621; }
+    .chip-unknown   { background: #f5f5f5; color: #888888; }
 
     .card-reason {
-      font-size: 0.85rem;
-      color: #4a5568;
-      background: #f7fafc;
-      border-radius: 8px;
-      padding: 10px 14px;
-      line-height: 1.5;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #555555;
+      background: #f5f5f5;
+      border-radius: 4px;
+      padding: 12px 16px;
+      line-height: 1.6;
+      border-left: 3px solid #e5e5e5;
     }
 
-    /* Status label */
-    .status-label {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: capitalize;
-    }
+    .result-card.callable    .card-reason { border-left-color: #00C8B4; }
+    .result-card.not-allowed .card-reason { border-left-color: #e53e3e; }
+    .result-card.manager     .card-reason { border-left-color: #f6ad55; }
 
-    .status-active    { background: #f0fff4; color: #276749; }
-    .status-canceled  { background: #fff5f5; color: #9b2c2c; }
-    .status-suspended { background: #fffaf0; color: #7b341e; }
-    .status-unknown   { background: #f7fafc; color: #718096; }
-
-    /* Loading / empty states */
+    /* ── States ── */
     .state-msg {
       text-align: center;
-      color: #a0aec0;
-      font-size: 0.9rem;
-      padding: 32px 0;
+      color: #888888;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 40px 0;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     }
 
     .spinner {
       display: inline-block;
-      width: 18px; height: 18px;
-      border: 2px solid #e2e8f0;
-      border-top-color: #4361ee;
+      width: 16px; height: 16px;
+      border: 2px solid #e5e5e5;
+      border-top-color: #00C8B4;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       vertical-align: middle;
@@ -244,27 +338,48 @@
 
     .error-msg {
       background: #fff5f5;
-      color: #9b2c2c;
-      border-radius: 8px;
-      padding: 14px 18px;
-      font-size: 0.88rem;
+      color: #c53030;
+      border-radius: 4px;
+      border-left: 4px solid #e53e3e;
+      padding: 16px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 0 20px; }
+      .hero  { padding: 32px 20px 24px; }
+      .main  { padding: 0 20px 40px; }
+      .card  { padding: 20px; }
+      .hero h1 { font-size: 1.5rem; }
+      .search-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
+<!-- Header -->
 <header>
-  <div>
-    <h1>Call Eligibility Checker</h1>
-    <span>AutoDealers Digital — Internal Sales Tool</span>
+  <div class="logo">
+    <span class="logo-text">AutoDealers Digital</span>
+    <span class="logo-tag">Internal Tools</span>
   </div>
 </header>
 
-<div class="container">
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-eyebrow">Sales Team Tool</p>
+  <h1>Call Eligibility Checker</h1>
+  <p>Look up any dealership to instantly know if you're allowed to call them.</p>
+</div>
+
+<!-- Main -->
+<div class="main">
 
   <!-- Rep Info -->
-  <div class="rep-panel">
-    <h2>Rep Information</h2>
+  <div class="card">
+    <p class="card-title">Rep Information — Fill once per session</p>
     <div class="rep-grid">
       <div class="field">
         <label>Tenure (years)</label>
@@ -273,7 +388,7 @@
       <div class="field">
         <label>Received a Raise?</label>
         <select id="has_raise">
-          <option value="">-- Select --</option>
+          <option value="">Select...</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>
@@ -281,7 +396,7 @@
       <div class="field">
         <label>Retention Training Done?</label>
         <select id="retention_training">
-          <option value="">-- Select --</option>
+          <option value="">Select...</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>
@@ -289,7 +404,7 @@
       <div class="field">
         <label>Team Lead Approval?</label>
         <select id="team_lead_approval">
-          <option value="">-- Select --</option>
+          <option value="">Select...</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>
@@ -298,7 +413,8 @@
   </div>
 
   <!-- Search -->
-  <div class="search-panel">
+  <div class="card">
+    <p class="card-title">Search Dealership</p>
     <div class="search-row">
       <input
         type="text"
@@ -308,7 +424,7 @@
       />
       <button class="btn-search" id="search-btn" onclick="doSearch()">Search</button>
     </div>
-    <p class="search-hint">Enter a name, email address, or phone number to look up in Freshsales.</p>
+    <p class="search-hint">Enter a dealership name, email address, or phone number to look up in Freshsales.</p>
   </div>
 
   <!-- Results -->
@@ -317,11 +433,8 @@
 </div>
 
 <script>
-  // ── Config ──────────────────────────────────────────────────────────────────
-  // Change this to your deployed backend URL when on Railway/Render
   const BACKEND_URL = 'http://localhost:3000';
 
-  // ── Search ──────────────────────────────────────────────────────────────────
   document.getElementById('search-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') doSearch();
   });
@@ -354,19 +467,18 @@
       }
 
       if (!data.results || data.results.length === 0) {
-        resultsEl.innerHTML = `<p class="state-msg">No contacts or accounts found for "<strong>${escHtml(query)}</strong>".</p>`;
+        resultsEl.innerHTML = `<p class="state-msg">No contacts found for "<strong>${escHtml(query)}</strong>".</p>`;
         return;
       }
 
       resultsEl.innerHTML = data.results.map(renderCard).join('');
     } catch (err) {
-      resultsEl.innerHTML = `<div class="error-msg">Could not reach the server. Make sure the backend is running.<br><small>${err.message}</small></div>`;
+      resultsEl.innerHTML = `<div class="error-msg">Could not reach the server. The backend may not be deployed yet.<br><small>${err.message}</small></div>`;
     } finally {
       btn.disabled = false;
     }
   }
 
-  // ── Rep Info ────────────────────────────────────────────────────────────────
   function getRepInfo() {
     const tenure = document.getElementById('tenure').value;
     const has_raise = document.getElementById('has_raise').value;
@@ -390,7 +502,6 @@
     };
   }
 
-  // ── Render Card ─────────────────────────────────────────────────────────────
   function renderCard(r) {
     const e = r.eligibility;
     const decision = e.decision;
@@ -398,47 +509,45 @@
     let cardClass = 'check';
     let badgeClass = 'badge-check';
 
-    if (decision === 'CALLABLE')              { cardClass = 'callable';    badgeClass = 'badge-callable'; }
-    else if (decision === 'NOT ALLOWED')      { cardClass = 'not-allowed'; badgeClass = 'badge-not-allowed'; }
-    else if (decision === 'NEEDS MANAGER APPROVAL') { cardClass = 'manager'; badgeClass = 'badge-manager'; }
+    if (decision === 'CALLABLE')                   { cardClass = 'callable';    badgeClass = 'badge-callable'; }
+    else if (decision === 'NOT ALLOWED')           { cardClass = 'not-allowed'; badgeClass = 'badge-not-allowed'; }
+    else if (decision === 'NEEDS MANAGER APPROVAL') { cardClass = 'manager';   badgeClass = 'badge-manager'; }
 
-    const statusClass = statusCssClass(r.account_status);
-    const statusLabel = r.account_status
-      ? `<span class="status-label ${statusClass}">${escHtml(r.account_status)}</span>`
-      : `<span class="status-label status-unknown">unknown</span>`;
+    const statusChip = e.account_status
+      ? `<span class="status-chip ${chipClass(e.account_status)}">${escHtml(e.account_status)}</span>`
+      : '';
 
     const metaParts = [];
-    if (r.email) metaParts.push(`<span>✉️ ${escHtml(r.email)}</span>`);
-    if (r.phone) metaParts.push(`<span>📞 ${escHtml(r.phone)}</span>`);
+    if (r.email) metaParts.push(`✉ ${escHtml(r.email)}`);
+    if (r.phone) metaParts.push(`✆ ${escHtml(r.phone)}`);
+    if (r.customer_id) metaParts.push(`ID: ${escHtml(String(r.customer_id))}`);
     if (e.days_since_cancellation !== undefined)
-      metaParts.push(`<span>📅 ${e.days_since_cancellation} days since cancellation</span>`);
+      metaParts.push(`${e.days_since_cancellation} days since cancellation`);
 
     return `
       <div class="result-card ${cardClass}">
         <div class="card-header">
           <div>
-            <div class="card-name">${escHtml(r.name || r.company || 'Unknown')}</div>
-            ${r.company && r.type === 'contact' ? `<div class="card-company">${escHtml(r.company)}</div>` : ''}
+            <div class="card-name">${escHtml(r.name || 'Unknown')}</div>
+            ${r.dealer_stage ? `<div class="card-sub">${escHtml(r.dealer_stage)}</div>` : ''}
           </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-            ${statusLabel}
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+            ${statusChip}
             <span class="eligibility-badge ${badgeClass}">${e.icon} ${escHtml(decision)}</span>
           </div>
         </div>
-        ${metaParts.length ? `<div class="card-meta">${metaParts.join('')}</div>` : ''}
+        ${metaParts.length ? `<div class="card-meta">${metaParts.map(p => `<span>${p}</span>`).join('')}</div>` : ''}
         <div class="card-reason">${escHtml(e.reason)}</div>
       </div>
     `;
   }
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
-  function statusCssClass(status) {
-    if (!status) return 'status-unknown';
-    const s = status.toLowerCase();
-    if (s === 'active') return 'status-active';
-    if (s === 'canceled' || s === 'cancelled') return 'status-canceled';
-    if (s === 'suspended') return 'status-suspended';
-    return 'status-unknown';
+  function chipClass(status) {
+    const s = (status || '').toLowerCase();
+    if (s === 'active') return 'chip-active';
+    if (s === 'cancelled' || s === 'canceled') return 'chip-cancelled';
+    if (s === 'suspended') return 'chip-suspended';
+    return 'chip-unknown';
   }
 
   function escHtml(str) {
