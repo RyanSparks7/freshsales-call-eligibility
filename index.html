@@ -15,7 +15,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
     header {
       background: #1a1a1a;
       border-bottom: 3px solid #00C8B4;
@@ -26,110 +25,25 @@
       justify-content: space-between;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-text { color: #fff; font-size: 1rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+    .logo-tag { color: #00C8B4; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid #00C8B4; padding: 2px 8px; border-radius: 2px; }
 
-    .logo-text {
-      color: #ffffff;
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
+    .hero { background: #1a1a1a; padding: 48px 40px 40px; max-width: 1100px; margin: 0 auto; }
+    .hero-eyebrow { color: #00C8B4; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+    .hero h1 { color: #fff; font-size: 2rem; font-weight: 900; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
+    .hero p { color: #888; font-size: 0.9rem; font-weight: 500; }
 
-    .logo-tag {
-      color: #00C8B4;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid #00C8B4;
-      padding: 2px 8px;
-      border-radius: 2px;
-    }
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 40px 60px; display: flex; flex-direction: column; gap: 24px; }
 
-    /* ── Hero ── */
-    .hero {
-      background: #1a1a1a;
-      padding: 48px 40px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .card { background: #fff; border-radius: 4px; border-top: 4px solid #00C8B4; box-shadow: 0 4px 24px rgba(0,0,0,0.07); padding: 28px 32px; }
+    .card-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 20px; }
 
-    .hero-eyebrow {
-      color: #00C8B4;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+    .field label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
 
-    .hero h1 {
-      color: #ffffff;
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #888888;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    /* ── Main Layout ── */
-    .main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border-radius: 4px;
-      border-top: 4px solid #00C8B4;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-      padding: 28px 32px;
-    }
-
-    .card-title {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #888888;
-      margin-bottom: 20px;
-    }
-
-    /* ── Rep Grid ── */
-    .rep-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-    }
-
-    .field label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #888888;
-      margin-bottom: 8px;
-    }
-
-    .field input[type="number"],
-    .field select {
+    .field input,
+    .field select,
+    .field textarea {
       width: 100%;
       padding: 10px 14px;
       border: 1.5px solid #e5e5e5;
@@ -144,209 +58,111 @@
     }
 
     .field input:focus,
-    .field select:focus {
-      outline: none;
-      border-color: #00C8B4;
-      background: #ffffff;
-    }
+    .field select:focus,
+    .field textarea:focus { outline: none; border-color: #00C8B4; background: #fff; }
 
-    /* ── Search ── */
-    .search-row {
-      display: flex;
-      gap: 10px;
-    }
+    /* Rep selector */
+    .rep-selector-row { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+    .rep-selector-row .field { flex: 1; min-width: 200px; }
 
-    .search-row input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 1.5px solid #e5e5e5;
-      border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      background: #f5f5f5;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .search-row input:focus {
-      outline: none;
-      border-color: #00C8B4;
-      background: #ffffff;
-    }
-
-    .search-row input::placeholder { color: #888888; font-weight: 500; }
-
-    .btn-search {
-      padding: 12px 28px;
-      background: #00C8B4;
-      color: #1a1a1a;
-      border: none;
-      border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-search:hover { background: #00a899; }
-    .btn-search:disabled { background: #e5e5e5; color: #888888; cursor: not-allowed; }
-
-    .search-hint {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #888888;
-      margin-top: 10px;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Result Cards ── */
-    #results { display: flex; flex-direction: column; gap: 16px; }
-
-    .result-card {
-      background: #ffffff;
-      border-radius: 4px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-      padding: 24px 28px;
-      border-top: 4px solid #e5e5e5;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .result-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.11);
-    }
-
-    .result-card.callable    { border-top-color: #00C8B4; }
-    .result-card.not-allowed { border-top-color: #e53e3e; }
-    .result-card.manager     { border-top-color: #f6ad55; }
-    .result-card.check       { border-top-color: #888888; }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-      gap: 16px;
-    }
-
-    .card-name {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #1a1a1a;
-      letter-spacing: -0.01em;
-    }
-
-    .card-sub {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #888888;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    .eligibility-badge {
+    .rep-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
-      border-radius: 2px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .badge-callable    { background: #e6faf8; color: #00796b; }
-    .badge-not-allowed { background: #fff5f5; color: #c53030; }
-    .badge-manager     { background: #fffaf0; color: #c05621; }
-    .badge-check       { background: #f5f5f5; color: #555555; }
-
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #888888;
-      margin-bottom: 14px;
-      letter-spacing: 0.02em;
-    }
-
-    .status-chip {
-      display: inline-block;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 2px;
       font-size: 0.68rem;
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      margin-bottom: 12px;
     }
+    .badge-junior  { background: #fff8e1; color: #e65100; }
+    .badge-senior  { background: #e8f5e9; color: #2e7d32; }
+    .badge-manager { background: #e3f2fd; color: #1565c0; }
 
+    #junior-fields { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e5e5; }
+    #junior-fields .junior-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+
+    /* Search */
+    .search-row { display: flex; gap: 10px; }
+    .search-row input {
+      flex: 1; padding: 12px 16px; border: 1.5px solid #e5e5e5; border-radius: 4px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; color: #1a1a1a;
+      background: #f5f5f5; transition: border-color 0.2s, background 0.2s;
+    }
+    .search-row input:focus { outline: none; border-color: #00C8B4; background: #fff; }
+    .search-row input::placeholder { color: #888; font-weight: 500; }
+
+    .btn-primary {
+      padding: 12px 28px; background: #00C8B4; color: #1a1a1a; border: none; border-radius: 4px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #00a899; }
+    .btn-primary:disabled { background: #e5e5e5; color: #888; cursor: not-allowed; }
+
+    .btn-secondary {
+      padding: 10px 20px; background: transparent; color: #00C8B4; border: 1.5px solid #00C8B4; border-radius: 4px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: #00C8B4; color: #1a1a1a; }
+
+    .search-hint { font-size: 0.75rem; font-weight: 500; color: #888; margin-top: 10px; letter-spacing: 0.02em; }
+
+    /* Add rep form */
+    #add-rep-form { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e5e5; }
+    .add-rep-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: flex-end; }
+
+    .success-msg { background: #e6faf8; color: #00796b; border-radius: 4px; padding: 10px 14px; font-size: 0.82rem; font-weight: 700; margin-top: 12px; display: none; }
+
+    /* Results */
+    #results { display: flex; flex-direction: column; gap: 16px; }
+
+    .result-card {
+      background: #fff; border-radius: 4px; box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 24px 28px; border-top: 4px solid #e5e5e5; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .result-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.11); }
+    .result-card.callable    { border-top-color: #00C8B4; }
+    .result-card.not-allowed { border-top-color: #e53e3e; }
+    .result-card.manager-approval { border-top-color: #f6ad55; }
+    .result-card.check       { border-top-color: #888; }
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 16px; }
+    .card-name { font-size: 1.05rem; font-weight: 800; color: #1a1a1a; letter-spacing: -0.01em; }
+    .card-sub { font-size: 0.75rem; font-weight: 600; color: #888; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+
+    .eligibility-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 2px;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-callable    { background: #e6faf8; color: #00796b; }
+    .badge-not-allowed { background: #fff5f5; color: #c53030; }
+    .badge-mgr-approval { background: #fffaf0; color: #c05621; }
+    .badge-check       { background: #f5f5f5; color: #555; }
+
+    .card-meta { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.78rem; font-weight: 600; color: #888; margin-bottom: 14px; }
+
+    .status-chip { display: inline-block; padding: 3px 10px; border-radius: 2px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
     .chip-active    { background: #e6faf8; color: #00796b; }
     .chip-cancelled { background: #fff5f5; color: #c53030; }
     .chip-suspended { background: #fffaf0; color: #c05621; }
-    .chip-unknown   { background: #f5f5f5; color: #888888; }
+    .chip-unknown   { background: #f5f5f5; color: #888; }
 
-    .card-reason {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #555555;
-      background: #f5f5f5;
-      border-radius: 4px;
-      padding: 12px 16px;
-      line-height: 1.6;
-      border-left: 3px solid #e5e5e5;
-    }
+    .card-reason { font-size: 0.82rem; font-weight: 500; color: #555; background: #f5f5f5; border-radius: 4px; padding: 12px 16px; line-height: 1.6; border-left: 3px solid #e5e5e5; }
+    .result-card.callable     .card-reason { border-left-color: #00C8B4; }
+    .result-card.not-allowed  .card-reason { border-left-color: #e53e3e; }
+    .result-card.manager-approval .card-reason { border-left-color: #f6ad55; }
 
-    .result-card.callable    .card-reason { border-left-color: #00C8B4; }
-    .result-card.not-allowed .card-reason { border-left-color: #e53e3e; }
-    .result-card.manager     .card-reason { border-left-color: #f6ad55; }
+    .state-msg { text-align: center; color: #888; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; padding: 40px 0; background: #fff; border-radius: 4px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
 
-    /* ── States ── */
-    .state-msg {
-      text-align: center;
-      color: #888888;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 40px 0;
-      background: #ffffff;
-      border-radius: 4px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid #e5e5e5;
-      border-top-color: #00C8B4;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #e5e5e5; border-top-color: #00C8B4; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .error-msg {
-      background: #fff5f5;
-      color: #c53030;
-      border-radius: 4px;
-      border-left: 4px solid #e53e3e;
-      padding: 16px 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
+    .error-msg { background: #fff5f5; color: #c53030; border-radius: 4px; border-left: 4px solid #e53e3e; padding: 16px 20px; font-size: 0.85rem; font-weight: 600; }
 
-    /* ── Responsive ── */
     @media (max-width: 600px) {
       header { padding: 0 20px; }
       .hero  { padding: 32px 20px 24px; }
@@ -354,12 +170,12 @@
       .card  { padding: 20px; }
       .hero h1 { font-size: 1.5rem; }
       .search-row { flex-direction: column; }
+      .add-rep-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <div class="logo">
     <span class="logo-text">AutoDealers Digital</span>
@@ -367,47 +183,55 @@
   </div>
 </header>
 
-<!-- Hero -->
 <div class="hero">
   <p class="hero-eyebrow">Sales Team Tool</p>
   <h1>Call Eligibility Checker</h1>
   <p>Look up any dealership to instantly know if you're allowed to call them.</p>
 </div>
 
-<!-- Main -->
 <div class="main">
 
-  <!-- Rep Info -->
+  <!-- Who are you -->
   <div class="card">
-    <p class="card-title">Rep Information — Fill once per session</p>
-    <div class="rep-grid">
+    <p class="card-title">Who Are You?</p>
+    <div class="rep-selector-row">
       <div class="field">
-        <label>Tenure (years)</label>
-        <input type="number" id="tenure" min="0" step="0.5" placeholder="e.g. 1.5" />
-      </div>
-      <div class="field">
-        <label>Received a Raise?</label>
-        <select id="has_raise">
-          <option value="">Select...</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
+        <label>Select Your Name</label>
+        <select id="rep-select" onchange="onRepSelect()">
+          <option value="">-- Select your name --</option>
         </select>
       </div>
-      <div class="field">
-        <label>Retention Training Done?</label>
-        <select id="retention_training">
-          <option value="">Select...</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Team Lead Approval?</label>
-        <select id="team_lead_approval">
-          <option value="">Select...</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+      <div id="rep-role-display" style="padding-bottom:2px;"></div>
+    </div>
+
+    <!-- Junior extra fields -->
+    <div id="junior-fields">
+      <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;margin-bottom:16px;">Junior Rep — Additional Requirements</p>
+      <div class="junior-grid">
+        <div class="field">
+          <label>Received a Raise?</label>
+          <select id="has_raise">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Retention Training Done?</label>
+          <select id="retention_training">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Team Lead Approval?</label>
+          <select id="team_lead_approval">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -416,13 +240,8 @@
   <div class="card">
     <p class="card-title">Search Dealership</p>
     <div class="search-row">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search by dealership name, phone, or email..."
-        autocomplete="off"
-      />
-      <button class="btn-search" id="search-btn" onclick="doSearch()">Search</button>
+      <input type="text" id="search-input" placeholder="Search by dealership name, phone, or email..." autocomplete="off" />
+      <button class="btn-primary" id="search-btn" onclick="doSearch()">Search</button>
     </div>
     <p class="search-hint">Enter a dealership name, email address, or phone number to look up in Freshsales.</p>
   </div>
@@ -430,14 +249,198 @@
   <!-- Results -->
   <div id="results"></div>
 
+  <!-- Add a Rep -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <p class="card-title" style="margin-bottom:0;">Add a Rep</p>
+      <button class="btn-secondary" onclick="toggleAddRep()">+ Add New Rep</button>
+    </div>
+    <p style="font-size:0.78rem;font-weight:500;color:#888;">New to the team? Add them here so they can select their name.</p>
+
+    <div id="add-rep-form">
+      <div class="add-rep-grid">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="new-rep-name" placeholder="e.g. John Smith" />
+        </div>
+        <div class="field">
+          <label>Role</label>
+          <select id="new-rep-role">
+            <option value="">Select role...</option>
+            <option value="junior">Junior</option>
+            <option value="senior">Senior</option>
+            <option value="manager">Manager</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="addRep()" style="height:42px;align-self:flex-end;">Save Rep</button>
+      </div>
+      <div class="success-msg" id="add-rep-success">Rep added successfully!</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
   const BACKEND_URL = 'http://localhost:3000';
 
-  document.getElementById('search-input').addEventListener('keydown', (e) => {
+  // ── Default reps ──────────────────────────────────────────────────────────
+  const DEFAULT_REPS = [
+    { name: 'Aaron Price',    role: 'junior'  },
+    { name: 'Adam',           role: 'senior'  },
+    { name: 'Alexa Clark',    role: 'senior'  },
+    { name: 'Amanda Moore',   role: 'senior'  },
+    { name: 'Amy',            role: 'manager' },
+    { name: 'Anthony Sparks', role: 'senior'  },
+    { name: 'Ashley Bennett', role: 'senior'  },
+    { name: 'Austin Parker',  role: 'junior'  },
+    { name: 'Autumn',         role: 'junior'  },
+    { name: 'Bill Carter',    role: 'senior'  },
+    { name: 'Chris Walker',   role: 'junior'  },
+    { name: 'Claire Wilson',  role: 'senior'  },
+    { name: 'Emily White',    role: 'senior'  },
+    { name: 'Hailey Anderson',role: 'manager' },
+    { name: 'Hazel',          role: 'senior'  },
+    { name: 'Heather Green',  role: 'senior'  },
+    { name: 'Jamie Mckenzie', role: 'manager' },
+    { name: 'Jessica Clark',  role: 'manager' },
+    { name: 'John Harris',    role: 'junior'  },
+    { name: 'Jordan Hill',    role: 'junior'  },
+    { name: 'Katie Walker',   role: 'manager' },
+    { name: 'Kyla Carter',    role: 'junior'  },
+    { name: 'Kyle Young',     role: 'junior'  },
+    { name: 'Laura Clark',    role: 'senior'  },
+    { name: 'Lisa Kelly',     role: 'senior'  },
+    { name: 'Mark White',     role: 'junior'  },
+    { name: 'Mason Miller',   role: 'senior'  },
+    { name: 'Mike Cohen',     role: 'junior'  },
+    { name: 'Rachel Winter',  role: 'junior'  },
+    { name: 'Robert Anderson',role: 'junior'  },
+    { name: 'Ryan Sparks',    role: 'manager' },
+    { name: 'Sam Davis',      role: 'junior'  },
+    { name: 'Staci van Wyk',  role: 'manager' },
+    { name: 'Travis Cole',    role: 'junior'  },
+    { name: 'William Lamperd',role: 'senior'  },
+  ];
+
+  // ── Load reps (default + any added via localStorage) ──────────────────────
+  function loadReps() {
+    const extra = JSON.parse(localStorage.getItem('extra_reps') || '[]');
+    return [...DEFAULT_REPS, ...extra].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  function populateRepDropdown() {
+    const select = document.getElementById('rep-select');
+    const saved = localStorage.getItem('selected_rep');
+    const reps = loadReps();
+
+    // Keep the placeholder option
+    select.innerHTML = '<option value="">-- Select your name --</option>';
+    reps.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.name;
+      opt.dataset.role = r.role;
+      opt.textContent = r.name;
+      if (saved === r.name) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    // Trigger display update if a saved rep is selected
+    if (saved) onRepSelect();
+  }
+
+  function onRepSelect() {
+    const select = document.getElementById('rep-select');
+    const selectedOpt = select.options[select.selectedIndex];
+    const role = selectedOpt?.dataset?.role || '';
+    const name = select.value;
+
+    // Persist selection
+    if (name) localStorage.setItem('selected_rep', name);
+
+    // Show role badge
+    const display = document.getElementById('rep-role-display');
+    if (role) {
+      display.innerHTML = `<span class="rep-badge badge-${role}">${role}</span>`;
+    } else {
+      display.innerHTML = '';
+    }
+
+    // Show/hide junior fields
+    document.getElementById('junior-fields').style.display = role === 'junior' ? 'block' : 'none';
+  }
+
+  // ── Add Rep ───────────────────────────────────────────────────────────────
+  function toggleAddRep() {
+    const form = document.getElementById('add-rep-form');
+    form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function addRep() {
+    const name = document.getElementById('new-rep-name').value.trim();
+    const role = document.getElementById('new-rep-role').value;
+
+    if (!name) { alert('Please enter a name.'); return; }
+    if (!role) { alert('Please select a role.'); return; }
+
+    const extra = JSON.parse(localStorage.getItem('extra_reps') || '[]');
+
+    // Prevent duplicates
+    const allReps = loadReps();
+    if (allReps.find(r => r.name.toLowerCase() === name.toLowerCase())) {
+      alert(`"${name}" already exists in the rep list.`);
+      return;
+    }
+
+    extra.push({ name, role });
+    localStorage.setItem('extra_reps', JSON.stringify(extra));
+
+    // Reset form
+    document.getElementById('new-rep-name').value = '';
+    document.getElementById('new-rep-role').value = '';
+
+    // Show success
+    const msg = document.getElementById('add-rep-success');
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+
+    // Refresh dropdown
+    populateRepDropdown();
+  }
+
+  // ── Search ────────────────────────────────────────────────────────────────
+  document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch();
   });
+
+  function getRepInfo() {
+    const select = document.getElementById('rep-select');
+    const name = select.value;
+    const role = select.options[select.selectedIndex]?.dataset?.role || '';
+
+    if (!name) {
+      alert('Please select your name before searching.');
+      return null;
+    }
+
+    const rep = { name, role };
+
+    if (role === 'junior') {
+      const has_raise = document.getElementById('has_raise').value;
+      const retention_training = document.getElementById('retention_training').value;
+      const team_lead_approval = document.getElementById('team_lead_approval').value;
+
+      if (!has_raise || !retention_training || !team_lead_approval) {
+        alert('Please fill in all junior rep fields before searching.');
+        return null;
+      }
+
+      rep.has_raise = has_raise === 'yes';
+      rep.retention_training = retention_training === 'yes';
+      rep.team_lead_approval = team_lead_approval === 'yes';
+    }
+
+    return rep;
+  }
 
   async function doSearch() {
     const query = document.getElementById('search-input').value.trim();
@@ -479,29 +482,7 @@
     }
   }
 
-  function getRepInfo() {
-    const tenure = document.getElementById('tenure').value;
-    const has_raise = document.getElementById('has_raise').value;
-    const retention_training = document.getElementById('retention_training').value;
-    const team_lead_approval = document.getElementById('team_lead_approval').value;
-
-    if (tenure === '') {
-      alert('Please enter your tenure (years) before searching.');
-      return null;
-    }
-    if (!has_raise || !retention_training || !team_lead_approval) {
-      alert('Please fill in all rep info fields before searching.');
-      return null;
-    }
-
-    return {
-      tenure_years: parseFloat(tenure),
-      has_raise: has_raise === 'yes',
-      retention_training: retention_training === 'yes',
-      team_lead_approval: team_lead_approval === 'yes',
-    };
-  }
-
+  // ── Render Result Card ────────────────────────────────────────────────────
   function renderCard(r) {
     const e = r.eligibility;
     const decision = e.decision;
@@ -509,17 +490,17 @@
     let cardClass = 'check';
     let badgeClass = 'badge-check';
 
-    if (decision === 'CALLABLE')                   { cardClass = 'callable';    badgeClass = 'badge-callable'; }
-    else if (decision === 'NOT ALLOWED')           { cardClass = 'not-allowed'; badgeClass = 'badge-not-allowed'; }
-    else if (decision === 'NEEDS MANAGER APPROVAL') { cardClass = 'manager';   badgeClass = 'badge-manager'; }
+    if (decision === 'CALLABLE')                    { cardClass = 'callable';         badgeClass = 'badge-callable'; }
+    else if (decision === 'NOT ALLOWED')            { cardClass = 'not-allowed';       badgeClass = 'badge-not-allowed'; }
+    else if (decision === 'NEEDS MANAGER APPROVAL') { cardClass = 'manager-approval'; badgeClass = 'badge-mgr-approval'; }
 
     const statusChip = e.account_status
       ? `<span class="status-chip ${chipClass(e.account_status)}">${escHtml(e.account_status)}</span>`
       : '';
 
     const metaParts = [];
-    if (r.email) metaParts.push(`✉ ${escHtml(r.email)}`);
-    if (r.phone) metaParts.push(`✆ ${escHtml(r.phone)}`);
+    if (r.email)       metaParts.push(`✉ ${escHtml(r.email)}`);
+    if (r.phone)       metaParts.push(`✆ ${escHtml(r.phone)}`);
     if (r.customer_id) metaParts.push(`ID: ${escHtml(String(r.customer_id))}`);
     if (e.days_since_cancellation !== undefined)
       metaParts.push(`${e.days_since_cancellation} days since cancellation`);
@@ -552,12 +533,11 @@
 
   function escHtml(str) {
     if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  populateRepDropdown();
 </script>
 </body>
 </html>

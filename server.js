@@ -18,10 +18,12 @@ const freshsales = axios.create({
   },
 });
 
+// Hard cutoff: accounts cancelled ON or AFTER this date cannot be called by anyone
+const HARD_CUTOFF_DATE = new Date('2025-06-21');
+
 // ─── Eligibility Logic ────────────────────────────────────────────────────────
-// Status lives on the Dealer (deal) record as the custom field "Account Status"
-// Cancellation date = "Closed date" on the dealer record
-// Active = Account Status is anything other than "Cancelled" or "Suspended"
+// rep.role: "junior" | "senior" | "manager"
+// rep.has_raise, rep.retention_training, rep.team_lead_approval (juniors only)
 
 function getEligibility(dealer, rep) {
   if (!dealer) {
@@ -32,110 +34,130 @@ function getEligibility(dealer, rep) {
     };
   }
 
-  // Account Status custom field — Freshsales custom fields are prefixed with cf_
-  // The field is called "Account Status" in the UI → cf_account_status in the API
   const rawStatus = dealer.cf_account_status || dealer.account_status || '';
   const status = rawStatus.toLowerCase().trim();
 
-  // Cancelled
-  if (status === 'cancelled' || status === 'canceled') {
-    // Closed date is the cancellation date
-    const closedDateRaw = dealer.closed_date;
-    if (!closedDateRaw) {
-      return {
-        decision: 'NEEDS MANAGER APPROVAL',
-        icon: '⚠️',
-        reason: 'Account is Cancelled but no closed date is recorded. Manager approval required.',
-        account_status: rawStatus,
-      };
-    }
-
-    const cancelDate = new Date(closedDateRaw);
-    const today = new Date();
-    const daysSince = Math.floor((today - cancelDate) / (1000 * 60 * 60 * 24));
-
-    if (daysSince < 90) {
-      return {
-        decision: 'NEEDS MANAGER APPROVAL',
-        icon: '⚠️',
-        reason: `Account was cancelled ${daysSince} day(s) ago (less than 90 days). Manager approval required before calling.`,
-        account_status: rawStatus,
-        days_since_cancellation: daysSince,
-        closed_date: closedDateRaw,
-      };
-    }
-
-    const tenureYears = parseFloat(rep.tenure_years) || 0;
-
-    if (tenureYears < 1 && daysSince < 365) {
-      const hasAll = rep.has_raise && rep.retention_training && rep.team_lead_approval;
-
-      if (hasAll) {
-        return {
-          decision: 'CALLABLE',
-          icon: '✅',
-          reason: `Account cancelled ${daysSince} day(s) ago. Rep tenure < 1 year but all conditions met (raise ✓, retention training ✓, team lead approval ✓).`,
-          account_status: rawStatus,
-          days_since_cancellation: daysSince,
-          closed_date: closedDateRaw,
-        };
-      }
-
-      const missing = [];
-      if (!rep.has_raise) missing.push('raise not received');
-      if (!rep.retention_training) missing.push('retention training not completed');
-      if (!rep.team_lead_approval) missing.push('team lead approval not granted');
-
-      return {
-        decision: 'NOT ALLOWED',
-        icon: '❌',
-        reason: `Account cancelled ${daysSince} day(s) ago. Rep tenure < 1 year and missing: ${missing.join(', ')}.`,
-        account_status: rawStatus,
-        days_since_cancellation: daysSince,
-        closed_date: closedDateRaw,
-      };
-    }
-
-    // 90+ days and (tenure >= 1 year OR 365+ days since cancellation)
+  // ── Active ──
+  if (status !== 'cancelled' && status !== 'canceled' && status !== 'suspended') {
     return {
       decision: 'CALLABLE',
       icon: '✅',
-      reason: `Account was cancelled ${daysSince} day(s) ago — enough time has passed to call.`,
+      reason: `Account is active (${rawStatus || 'Set up in progress'}).`,
+      account_status: rawStatus || 'Active',
+    };
+  }
+
+  // ── Suspended ──
+  if (status === 'suspended') {
+    return {
+      decision: 'CHECK WITH MANAGER',
+      icon: '🔍',
+      reason: 'Account is suspended. Rules for suspended accounts are not yet defined — check with your manager.',
+      account_status: rawStatus,
+    };
+  }
+
+  // ── Cancelled ──
+  const closedDateRaw = dealer.closed_date;
+
+  if (!closedDateRaw) {
+    return {
+      decision: 'NEEDS MANAGER APPROVAL',
+      icon: '⚠️',
+      reason: 'Account is cancelled but no closed date is recorded. Manager approval required.',
+      account_status: rawStatus,
+    };
+  }
+
+  const cancelDate = new Date(closedDateRaw);
+  const today = new Date();
+  const daysSince = Math.floor((today - cancelDate) / (1000 * 60 * 60 * 24));
+
+  // Hard cutoff rule: cancelled on or after June 21, 2025 — no one can call
+  if (cancelDate >= HARD_CUTOFF_DATE) {
+    return {
+      decision: 'NOT ALLOWED',
+      icon: '❌',
+      reason: `Account was cancelled on ${formatDate(cancelDate)}, which is on or after June 21, 2025. No one is allowed to call this account.`,
       account_status: rawStatus,
       days_since_cancellation: daysSince,
       closed_date: closedDateRaw,
     };
   }
 
-  // Suspended
-  if (status === 'suspended') {
+  // Cancelled before June 21, 2025 — apply standard rules
+  if (daysSince < 90) {
+    // Managers can approve themselves
+    if (rep.role === 'manager') {
+      return {
+        decision: 'CALLABLE',
+        icon: '✅',
+        reason: `Account was cancelled ${daysSince} day(s) ago (under 90 days). As a manager, you can approve this call.`,
+        account_status: rawStatus,
+        days_since_cancellation: daysSince,
+        closed_date: closedDateRaw,
+      };
+    }
     return {
-      decision: 'CHECK WITH MANAGER',
-      icon: '🔍',
-      reason: 'Account is Suspended. Rules for suspended accounts are not yet defined — check with your manager.',
+      decision: 'NEEDS MANAGER APPROVAL',
+      icon: '⚠️',
+      reason: `Account was cancelled ${daysSince} day(s) ago (less than 90 days). Manager approval required before calling.`,
       account_status: rawStatus,
+      days_since_cancellation: daysSince,
+      closed_date: closedDateRaw,
     };
   }
 
-  // Active — anything else (Set up in progress, Won, etc.)
+  // Junior reps with tenure < 1 year and within 365 days
+  if (rep.role === 'junior' && daysSince < 365) {
+    const hasAll = rep.has_raise && rep.retention_training && rep.team_lead_approval;
+    if (hasAll) {
+      return {
+        decision: 'CALLABLE',
+        icon: '✅',
+        reason: `Account cancelled ${daysSince} day(s) ago. All junior conditions met (raise ✓, retention training ✓, team lead approval ✓).`,
+        account_status: rawStatus,
+        days_since_cancellation: daysSince,
+        closed_date: closedDateRaw,
+      };
+    }
+
+    const missing = [];
+    if (!rep.has_raise) missing.push('raise not received');
+    if (!rep.retention_training) missing.push('retention training not completed');
+    if (!rep.team_lead_approval) missing.push('team lead approval not granted');
+
+    return {
+      decision: 'NOT ALLOWED',
+      icon: '❌',
+      reason: `Account cancelled ${daysSince} day(s) ago. Junior rep missing: ${missing.join(', ')}.`,
+      account_status: rawStatus,
+      days_since_cancellation: daysSince,
+      closed_date: closedDateRaw,
+    };
+  }
+
+  // Senior / manager with 90+ days, or anyone with 365+ days
   return {
     decision: 'CALLABLE',
     icon: '✅',
-    reason: `Account is active (status: ${rawStatus || 'Set up in progress'}).`,
-    account_status: rawStatus || 'Active',
+    reason: `Account was cancelled ${daysSince} day(s) ago — eligible to call.`,
+    account_status: rawStatus,
+    days_since_cancellation: daysSince,
+    closed_date: closedDateRaw,
   };
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 // ─── Fetch dealer for a contact ───────────────────────────────────────────────
 async function getDealerForContact(contactId) {
   try {
-    // Freshsales API: fetch deals associated with a contact
     const res = await freshsales.get(`/contacts/${contactId}/deals`);
     const deals = res.data?.deals || [];
-
     if (deals.length === 0) return null;
-
-    // If multiple dealers, prefer the most recent one (sorted by updated_at desc)
     deals.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
     return deals[0];
   } catch (err) {
@@ -147,19 +169,13 @@ async function getDealerForContact(contactId) {
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
 // POST /api/search
-// Body: { query: string, rep: { tenure_years, has_raise, retention_training, team_lead_approval } }
 app.post('/api/search', async (req, res) => {
   const { query, rep } = req.body;
 
-  if (!query || !query.trim()) {
-    return res.status(400).json({ error: 'Query is required.' });
-  }
-  if (!rep) {
-    return res.status(400).json({ error: 'Rep info is required.' });
-  }
+  if (!query || !query.trim()) return res.status(400).json({ error: 'Query is required.' });
+  if (!rep) return res.status(400).json({ error: 'Rep info is required.' });
 
   try {
-    // Search contacts only — contacts ARE the dealerships in this CRM
     const contactRes = await freshsales.get('/contacts/search', {
       params: { q: query.trim() },
     });
@@ -170,7 +186,6 @@ app.post('/api/search', async (req, res) => {
       return res.json({ results: [], message: 'No contacts found.' });
     }
 
-    // For each contact, fetch their dealer record and determine eligibility
     const results = await Promise.all(
       contacts.map(async (contact) => {
         const dealer = await getDealerForContact(contact.id);
@@ -201,28 +216,20 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-// GET /api/contact/:id — full contact + dealer details
+// GET /api/contact/:id
 app.get('/api/contact/:id', async (req, res) => {
   try {
     const [contactRes, dealer] = await Promise.all([
       freshsales.get(`/contacts/${req.params.id}`),
       getDealerForContact(req.params.id),
     ]);
-
-    return res.json({
-      contact: contactRes.data?.contact || contactRes.data,
-      dealer,
-    });
+    return res.json({ contact: contactRes.data?.contact || contactRes.data, dealer });
   } catch (err) {
-    console.error('Contact fetch error:', err?.response?.data || err.message);
-    return res.status(500).json({
-      error: 'Failed to fetch contact.',
-      details: err?.response?.data || err.message,
-    });
+    return res.status(500).json({ error: 'Failed to fetch contact.', details: err?.response?.data || err.message });
   }
 });
 
-// GET /api/debug/contact/:id — returns raw API response to inspect field names
+// GET /api/debug/contact/:id
 app.get('/api/debug/contact/:id', async (req, res) => {
   try {
     const contact = await freshsales.get(`/contacts/${req.params.id}`);
@@ -233,11 +240,7 @@ app.get('/api/debug/contact/:id', async (req, res) => {
   }
 });
 
-// Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-// ─── Start ────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Call Eligibility server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Call Eligibility server running on port ${PORT}`));
